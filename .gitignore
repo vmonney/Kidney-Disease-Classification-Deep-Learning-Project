@@ -161,3 +161,9 @@ cython_debug/
 
 # Ruff stuff
 pyproject.toml
+
+# credentials
+secrets.yaml
+
+# data
+artifacts/

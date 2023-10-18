@@ -18,4 +18,5 @@ Flask-Cors
 gdown
 ruff
 black
+kaggle
 -e .
