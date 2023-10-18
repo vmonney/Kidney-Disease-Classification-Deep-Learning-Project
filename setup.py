@@ -16,9 +16,8 @@ from pathlib import Path
 
 import setuptools
 
-with Path.open("README.md", encoding="utf-8") as f:
+with Path("README.md").open(encoding="utf-8") as f:
     long_description = f.read()
-
 
 __version__ = "0.0.0"
 

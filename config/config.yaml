@@ -6,11 +6,6 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/ct-kidney-dataset-normal-cyst-tumor-and-stone.zip
   unzip_dir: artifacts/data_ingestion
 
-data_processing:
-    root_dir: artifacts/data_preparation
-    data_in: artifacts/data_ingestion/X-ray_chest_images
-    data_out: artifacts/data_preparation/processed_images
-  
 prepare_base_model:
   root_dir: artifacts/prepare_base_model
   base_model_path: artifacts/prepare_base_model/base_model.h5
