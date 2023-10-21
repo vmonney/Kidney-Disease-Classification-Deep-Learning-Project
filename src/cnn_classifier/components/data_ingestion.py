@@ -1,5 +1,6 @@
 """DataIngestion class, which download and extract data for the CNN classifier."""
 
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -40,6 +41,25 @@ class DataIngestion:
                 f"{get_size(Path(self.config.local_data_file))}",
             )
 
+    def remove_redundant_directory(self) -> None:
+        """Remove the redundant nested directory if same names as parent."""
+        base_path = Path(self.config.unzip_dir)
+        nested_path = (
+            base_path
+            / "CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone"
+            / "CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone"
+        )
+
+        if nested_path.exists() and nested_path.name == nested_path.parent.name:
+            # Move all contents of the nested directory to its parent directory
+            for item in nested_path.iterdir():
+                shutil.move(str(item), str(nested_path.parent))
+
+            # Remove the now-empty nested directory
+            nested_path.rmdir()
+
+            logger.info("Redundant nested directory removed!")
+
     def extract_zip_file(self) -> None:
         """Extract the zip file into the data directory.
 
@@ -51,3 +71,5 @@ class DataIngestion:
         Path(unzip_path).mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
             zip_ref.extractall(unzip_path)
+
+        self.remove_redundant_directory()
