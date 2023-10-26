@@ -4,6 +4,7 @@ from pathlib import Path
 from cnn_classifier.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from cnn_classifier.entity.config_entity import (
     DataIngestionConfig,
+    EvaluationConfig,
     PrepareBaseModelConfig,
     TrainingConfig,
 )
@@ -80,4 +81,15 @@ class ConfigurationManager:
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
             params_image_size=params.IMAGE_SIZE,
+        )
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        """Return the validation configuration."""
+        return EvaluationConfig(
+            path_of_model="artifacts/training/model.h5",
+            training_data="artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
+            mlflow_uri="https://dagshub.com/vmonney/Kidney-Disease-Classification-Deep-Learning-Project.mlflow",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE,
         )

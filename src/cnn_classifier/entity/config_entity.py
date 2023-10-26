@@ -40,3 +40,15 @@ class TrainingConfig:
     params_batch_size: int
     params_is_augmentation: bool
     params_image_size: list
+
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    """Configuration class for evaluation."""
+
+    path_of_model: Path
+    training_data: Path
+    mlflow_uri: str
+    all_params: dict
+    params_image_size: list
+    params_batch_size: int
